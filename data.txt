@@ -1,0 +1,13 @@
+Nama: aaaaaaaaa, Tinggi: 166, Berat: 50, Usia: 20, Jenis Kelamin: P, Aktivitas: Sedang
+Nama: aaaaaaaaa, Tinggi: 166, Berat: 55, Usia: 20, Jenis Kelamin: P, Aktivitas: Sedang
+Nama: aaaaaaaaa, Tinggi: 166, Berat: 55, Usia: 20, Jenis Kelamin: P, Aktivitas: Sedang
+Nama: aaaaaaaaa, Tinggi: 166, Berat: 58, Usia: 20, Jenis Kelamin: P, Aktivitas: Sedang
+Nama: aaaaaaaaa, Tinggi: 166, Berat: 70, Usia: 20, Jenis Kelamin: P, Aktivitas: Sedang
+Nama: safirah, Tinggi: 166, Berat: 56, Usia: 20, Jenis Kelamin: P, Aktivitas: Sedang
+Nama: safirah, Tinggi: 166, Berat: 65, Usia: 20, Jenis Kelamin: P, Aktivitas: Sedang
+Nama: safirah, Tinggi: 166, Berat: 65, Usia: 20, Jenis Kelamin: P, Aktivitas: Sedang
+Nama: rawr, Tinggi: 166, Berat: 60, Usia: 20, Jenis Kelamin: P, Aktivitas: Tinggi
+Nama: rawr, Tinggi: 166, Berat: 60, Usia: 20, Jenis Kelamin: P, Aktivitas: Tinggi
+Nama: rawr, Tinggi: 166, Berat: 60, Usia: 30, Jenis Kelamin: P, Aktivitas: Tinggi
+Nama: rawr, Tinggi: 166, Berat: 60, Usia: 30, Jenis Kelamin: P, Aktivitas: Tinggi
+Nama: rawr, Tinggi: 166, Berat: 60, Usia: 30, Jenis Kelamin: P, Aktivitas: Tinggi
