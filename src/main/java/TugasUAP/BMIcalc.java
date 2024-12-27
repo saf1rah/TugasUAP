@@ -4,35 +4,54 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
+/**
+ * BMIcalc
+ * Aplikasi Kalkulator BMI dengan GUI berbasis Java Swing.
+ * Fitur:
+ * -Menghitung BMI dari input pengguna.
+ * -Menyimpan data ke dalam tabel.
+ * -Menampilkan, memperbarui dan menghapus data yang tersimpan.
+ */
 public class BMIcalc {
+    /* Frame utama untuk aplikasi */
     private static JFrame frame;
+
+    /* Komponen input */
     private static JTextField nameField, heightField, weightField, ageField, searchField;
+
+    /* Komponen hasil dan dropdown */
     private static JTextArea resultArea;
     private static JComboBox<String> genderComboBox, activityComboBox;
+
+    /* Model tabel dan layout halaman */
     private static DefaultTableModel tableModel;
     private static JPanel cardsPanel;
     private static CardLayout cardLayout;
 
+    /**
+     * Metode main
+     * Memulai aplikasi BMI Calculator.
+     */
     public static void main(String[] args) {
-        // Setup Frame
+        // Membuat frame utama dengan pengaturan ukuran dan layout
         frame = new JFrame("BMI Calculator - Modern App");
-        frame.setSize(800, 600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(800, 600); // Ukuran frame
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Menutup aplikasi saat tombol close ditekan
         frame.setLayout(new BorderLayout());
 
-        // Header
+        // Header aplikasi
         JLabel headerLabel = new JLabel("BMI Calculator", JLabel.CENTER);
-        headerLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
+        headerLabel.setFont(new Font("SansSerif", Font.BOLD, 24)); // Menambahkan font dan ukuran
         headerLabel.setOpaque(true);
-        headerLabel.setBackground(new Color(255, 105, 180)); // Pink background for header
-        headerLabel.setForeground(Color.WHITE);
-        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        headerLabel.setBackground(new Color(255, 105, 180)); // Background warna pink untuk header
+        headerLabel.setForeground(Color.WHITE); // Warna teks header
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0)); // Margin header
         frame.add(headerLabel, BorderLayout.NORTH);
 
-        // Card Layout to manage multiple pages
+        // Panel utama dengan CardLayout untuk mengelola banyak halaman
         cardsPanel = new JPanel();
         cardLayout = new CardLayout();
-        cardsPanel.setLayout(cardLayout);
+        cardsPanel.setLayout(cardLayout); // Menggunakan CardLayout untuk switch antar halaman
         frame.add(cardsPanel, BorderLayout.CENTER);
 
         // First Page (Input Page)
@@ -44,58 +63,62 @@ public class BMIcalc {
         cardsPanel.add(resultPage, "Result Page");
 
         // Show frame
-        frame.setVisible(true);
+        frame.setVisible(true); // Menampilkan frame
     }
 
+    /* Metode untuk membuat halaman input */
     private static JPanel createInputPage() {
         JPanel inputPage = new JPanel();
-        inputPage.setLayout(new BoxLayout(inputPage, BoxLayout.Y_AXIS));
-        inputPage.setBackground(Color.WHITE); // White background for input page
+        inputPage.setLayout(new BoxLayout(inputPage, BoxLayout.Y_AXIS)); // Menggunakan BoxLayout untuk susunan vertikal
+        inputPage.setBackground(Color.WHITE); // Warna latar belakang putih untuk halaman input
 
         // Input Panel
-        JPanel inputPanel = createInputPanel();
+        JPanel inputPanel = createInputPanel(); // Membuat panel untuk input data
         inputPage.add(inputPanel);
 
-        // Result Area to show BMI calculation on first page
+        // Area hasil perhitungan BMI pada halaman pertama
         resultArea = new JTextArea(5, 30);
-        resultArea.setEditable(false);
+        resultArea.setEditable(false); // Tidak bisa mengedit hasil
         resultArea.setBorder(BorderFactory.createTitledBorder("Hasil Perhitungan"));
         inputPage.add(resultArea);
 
-        // Button Panel
+        // Panel tombol
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(1, 3, 10, 10));
-        buttonPanel.setBackground(Color.WHITE); // White background for button panel
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        buttonPanel.setLayout(new GridLayout(1, 3, 10, 10)); // GridLayout untuk tombol
+        buttonPanel.setBackground(Color.WHITE); // Background putih untuk panel tombol
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Padding untuk tombol
         inputPage.add(buttonPanel);
 
+        // Menambahkan tombol Hitung dan Lihat Hasil
         addButton(buttonPanel, "Hitung", e -> calculateBMI());
         addButton(buttonPanel, "Lihat Hasil", e -> cardLayout.show(cardsPanel, "Result Page"));
 
         return inputPage;
     }
 
+    /* Metode untuk membuat halaman hasil */
     private static JPanel createResultPage() {
         JPanel resultPage = new JPanel();
-        resultPage.setLayout(new BoxLayout(resultPage, BoxLayout.Y_AXIS));
-        resultPage.setBackground(Color.WHITE); // White background for result page
+        resultPage.setLayout(new BoxLayout(resultPage, BoxLayout.Y_AXIS)); // Susunan vertikal
+        resultPage.setBackground(Color.WHITE); // Latar belakang putih untuk halaman hasil
 
-        // Table Setup
+        // Setup tabel untuk menampilkan hasil
         String[] columns = {"Nama", "BMI", "Kategori", "Saran"};
-        tableModel = new DefaultTableModel(columns, 0);
+        tableModel = new DefaultTableModel(columns, 0); // Model tabel untuk data BMI
         JTable table = new JTable(tableModel);
-        table.setBackground(Color.BLACK); // Black background for table
-        table.setForeground(Color.WHITE); // White text for table
+        table.setBackground(Color.BLACK); // Latar belakang tabel hitam
+        table.setForeground(Color.WHITE); // Teks tabel putih
         JScrollPane tableScrollPane = new JScrollPane(table);
-        resultPage.add(tableScrollPane);
+        resultPage.add(tableScrollPane); // Menambahkan tabel ke halaman
 
-        // Button Panel
+        // Panel tombol untuk halaman hasil
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(1, 3, 10, 10));
-        buttonPanel.setBackground(Color.WHITE); // White background for button panel
+        buttonPanel.setBackground(Color.WHITE);
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         resultPage.add(buttonPanel);
 
+        // Menambahkan tombol Kembali, Update, dan Delete
         addButton(buttonPanel, "Kembali", e -> cardLayout.show(cardsPanel, "Input Page"));
         addButton(buttonPanel, "Update", e -> updateData());
         addButton(buttonPanel, "Delete", e -> deleteData());
@@ -103,15 +126,17 @@ public class BMIcalc {
         return resultPage;
     }
 
+    /* Metode untuk membuat panel input data */
     private static JPanel createInputPanel() {
         JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new GridLayout(6, 2, 10, 10));
-        inputPanel.setBackground(Color.WHITE); // White background for input panel
+        inputPanel.setLayout(new GridLayout(6, 2, 10, 10)); // Menggunakan GridLayout untuk tata letak
+        inputPanel.setBackground(Color.WHITE);
         inputPanel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createTitledBorder("Masukkan Data Anda"),
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)
         ));
 
+        // Menambahkan komponen input ke panel
         inputPanel.add(new JLabel("Nama:"));
         nameField = new JTextField(15);
         inputPanel.add(nameField);
@@ -139,15 +164,17 @@ public class BMIcalc {
         return inputPanel;
     }
 
+    /* Metode untuk menambahkan tombol dengan action */
     private static void addButton(JPanel panel, String text, java.awt.event.ActionListener action) {
         JButton button = new JButton(text);
         button.setFont(new Font("SansSerif", Font.BOLD, 12));
-        button.setBackground(new Color(255, 105, 180)); // Pink background for buttons
-        button.setForeground(Color.WHITE); // White text for buttons
-        button.addActionListener(action);
+        button.setBackground(new Color(255, 105, 180)); // Background tombol berwarna pink
+        button.setForeground(Color.WHITE); // Warna teks tombol putih
+        button.addActionListener(action); // Menambahkan listener untuk aksi tombol
         panel.add(button);
     }
 
+    /* Metode untuk menghitung BMI dan menampilkan hasil */
     private static void calculateBMI() {
         try {
             String name = nameField.getText();
@@ -155,32 +182,35 @@ public class BMIcalc {
             String weightStr = weightField.getText();
             String ageStr = ageField.getText();
 
+            // Validasi input
             if (name.isEmpty() || heightStr.isEmpty() || weightStr.isEmpty() || ageStr.isEmpty()) {
                 JOptionPane.showMessageDialog(frame, "Harap isi semua kolom!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            double height = Double.parseDouble(heightStr) / 100.0; // Convert cm to meters
+            double height = Double.parseDouble(heightStr) / 100.0; // Mengkonversi cm ke meter
             double weight = Double.parseDouble(weightStr);
             double bmi = weight / (height * height);
 
+            // Menentukan kategori BMI dan saran
             String category = getBMICategory(bmi);
             String suggestion = getSuggestion(bmi);
 
-            // Add to result area (on the first page)
+            // Menampilkan hasil pada halaman input
             resultArea.setText(String.format("Nama: %s\nBMI: %.2f\nKategori: %s\n\nSaran: %s",
                     name, bmi, category, suggestion));
 
-            // Add to table (on the second page)
+            // Menambahkan data ke tabel pada halaman hasil
             tableModel.addRow(new Object[]{name, bmi, category, suggestion});
 
-            // Switch to the result page after calculation
+            // Berpindah ke halaman hasil setelah perhitungan
             cardLayout.show(cardsPanel, "Result Page");
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(frame, "Harap masukkan angka yang valid!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
+    /* Metode untuk menentukan kategori BMI */
     private static String getBMICategory(double bmi) {
         if (bmi < 18.5) {
             return "Kekurangan Berat Badan";
@@ -193,6 +223,7 @@ public class BMIcalc {
         }
     }
 
+    /* Metode untuk memberikan saran berdasarkan BMI */
     private static String getSuggestion(double bmi) {
         if (bmi < 18.5) {
             return "Tingkatkan asupan kalori sehat untuk menambah berat badan.";
@@ -205,6 +236,7 @@ public class BMIcalc {
         }
     }
 
+    /* Metode untuk memperbarui data pada tabel */
     private static void updateData() {
         String searchName = JOptionPane.showInputDialog(frame, "Masukkan Nama yang Ingin Diupdate:");
         if (searchName != null && !searchName.isEmpty()) {
@@ -231,6 +263,7 @@ public class BMIcalc {
         }
     }
 
+    /* Metode untuk menghapus data pada tabel */
     private static void deleteData() {
         String searchName = JOptionPane.showInputDialog(frame, "Masukkan Nama yang Ingin Dihapus:");
         if (searchName != null && !searchName.isEmpty()) {
