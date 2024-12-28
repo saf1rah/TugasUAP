@@ -34,7 +34,7 @@ public class BMIcalc {
      */
     public static void main(String[] args) {
         frame = new JFrame("BMI Calculator - Modern App");
-        frame.setSize(800, 600);
+        frame.setSize(1500, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
